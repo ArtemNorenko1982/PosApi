@@ -7,7 +7,9 @@ const resolvers = require('./graphql/resolvers');
 const { CONNECTION_STRING } = require('./appconfig');
 
 const server = new ApolloServer({
-    typeDefs, resolvers
+    typeDefs,
+    resolvers,
+    context: ({ req }) => ({ req })
 });
 
 connect(CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
