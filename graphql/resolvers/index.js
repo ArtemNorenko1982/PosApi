@@ -1,11 +1,13 @@
 const usersResolvers = require('./users');
-const productsResolvers = require('./product');
+const productsResolvers = require('./products');
 
 module.exports = {
     Query: {
-        ...usersResolvers.Query, ...productsResolvers.Query
+        ...usersResolvers.Query,
+        ...productsResolvers.Query
     },
     Mutation: {
-        ...usersResolvers.Mutation
+        ...usersResolvers.Mutation,
+        ...productsResolvers.Mutation
     }
 }
