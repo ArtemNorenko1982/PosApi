@@ -10,13 +10,6 @@ module.exports = gql`
         token: String!
     }
 
-    input RegisterUserInput{
-        userName: String!,
-        password: String!,
-        confirmPassword: String!,
-        email: String!
-    }
-
     type Product{
         id: ID,
         title: String!,
@@ -25,6 +18,13 @@ module.exports = gql`
         code: String!,
         barcode: String!,
         createdAt: String!
+    }
+
+    input RegisterUserInput{
+        userName: String!,
+        password: String!,
+        confirmPassword: String!,
+        email: String!
     }
 
     input RegisterProductDataInput {
@@ -41,6 +41,8 @@ module.exports = gql`
         getProducts: [Product]
         getProductByCode(code: String!): Product
         getProductByBarCode(code: String!): Product
+        getProductByTitle(title: String!): Product
+        getProductsFilteredByTitle(title: String!): [Product]
     }
 
     type Mutation{

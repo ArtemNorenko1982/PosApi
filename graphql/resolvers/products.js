@@ -2,6 +2,7 @@ const Product = require('../../Models/Product');
 const { validateProductDataInput } = require('../../utils/productValidators');
 const checkAuth = require('../../utils/check-auth');
 const { UserInputError } = require('apollo-server');
+const escapeStringRegex = require('escape-regex-string');
 
 getError = (description, data) => {
     throw new UserInputError(description, { data });
@@ -29,6 +30,24 @@ module.exports = {
             try {
                 const product = await Product.findOne({ barcode });
                 return product;
+            } catch (error) {
+                throw new Error(error);
+            }
+        },
+        async getProductByTitle(_, { title }) {
+            try {
+                const product = await Product.findOne({ title })
+                return product;
+            } catch (error) {
+                throw new Error(error);
+            }
+        },
+        async getProductsFilteredByTitle(_, { title }) {
+            const $regex = escapeStringRegex(title);
+            try {
+                const products = await Product
+                .find({ title: { $regex } });
+                return products;
             } catch (error) {
                 throw new Error(error);
             }
